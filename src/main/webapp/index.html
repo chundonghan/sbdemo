@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Welcome!</title>
+<link rel="stylesheet" href="assets/bootstrap.css"/>
+
+</head>
+<body >
+<div class="form-horizonal" ng-app="myApp" ng-init="initial_value = 'es';" ng-controller="myCtrl">
+	<div class="form-group">
+		<label class="col-lg-1">name</label>
+		<div class="col-lg-5">
+			<input type="text" class="form-control" ng-model="name" value="" placeholder="输入名字"/>
+		</div>
+	</div>
+	<h1>hello {{name}}  </h1><!-- <span ng-bind="name"></span> -->
+	<button class="btn btn-primary btn-middle" ng-click='sayHello()'>hello</button>    
+</div>
+<!-- 表达式 -->
+<!-- <div id="expr" ng-app="expr" ng-init="quantity=1;cost=5">
+	<p>{{quantity*cost}}</p>
+	<p><span ng-bind="quantity*cost"></span> </p>
+</div> -->
+<!--  <div id="expr" ng-app="expr" ng-init="firstname='dongchun';lastname='han'">
+	<p>{{lastname+""+firstname}}</p>
+	<p><span ng-bind="lastname+''+firstname"></span> </p>
+</div>  -->
+<!--  <div id="expr" ng-app="expr" ng-init="person={firstname:'dongchun',lastname:'han'}">
+	<p>{{person.lastname+""+person.firstname}}</p>
+	<p><span ng-bind="person.lastname+''+person.firstname"></span> </p>
+</div>  -->
+<div id="expr" ng-app="expr" ng-init="num=[2,3,5,7,9]">
+	<p>{{num[2]+num[3]}}</p>
+	<p><span ng-bind="num[2]+num[3]"></span> </p>
+	<!-- array jsonArray 遍历 -->
+	<ul>
+    <li ng-repeat="x in num">
+      {{ x }}
+    </li>
+  </ul>
+</div>
+<div id="ng_command" ng-app="ng_command" ng-init="quantity=1;price=5">
+	<h2>价格计算器</h2>
+	数量： <input type="number" ng-model="quantity">
+	价格： <input type="number" ng-model="price">
+	<p><b>总价：</b> {{ quantity * price }}</p>
+ 
+</div>
+<!-- scope -->
+<div id="ng_scope" ng-app="ng_scope" ng-controller="familyController">
+	<h1>{{lastname}} 家庭成员：</h1>
+	<ul>
+		<li ng-repeat="x in names">{{x}} {{lastname}}</li>
+	</ul>
+</div>
+
+
+
+<script type="text/javascript" src="assets/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="assets/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/angular.js"></script>
+<script type="text/javascript">
+	$(function(){
+	})
+	var app = angular.module('myApp',[]);
+	
+	app.controller('myCtrl', function($scope) {
+	    //$scope.name= "John";
+	    $scope.sayHello = function(){
+	    	$scope.name= "John";
+	    }
+	});
+	var app_expr = angular.module('expr',[]);
+	var app_ng_command = angular.module('ng_command',[]);
+	
+	var app_ng_scope = angular.module('ng_scope',[]);
+	/* 
+		$scope 当前controller下
+		$rootScope 当前app下
+	*/
+	app_ng_scope.controller('familyController',function($scope,$rootScope){
+		$scope.names = ["Amy","Ellen","Irving"]
+		$rootScope.lastname= "Curry";
+	});
+	//默认第一个模块
+	//下行代码 加载多个模块 写在最后一行
+	angular.bootstrap(document.getElementById("expr"), ['expr']);
+	angular.bootstrap(document.getElementById("ng_command"), ['ng_command']);
+	angular.bootstrap(document.getElementById("ng_scope"), ['ng_scope']);
+	
+</script>
+</body>
+</html>
+<!-- 
+	ng-app : 应用程序所有者 
+	对应js => var app = angular.module('myApp',[]);   模块（Module）定义应用
+	
+	ng-model : 输入域绑定应用程序变量
+	对应html => 表达式 : {{ }}, <element ng-bind=""></element>
+	
+	ng-controller : 控制器 控制应用
+	对应js =>	 app.controller('myCtrl', function($scope) {
+			     $scope.name= "John";
+			 });
+			 $scope : 作用域
+-->

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Event</title>
+<link rel="stylesheet" href="/sbdemo/assets/bootstrap.css"/>
+<!-- 
+	$scope.$$prevSibling;
+	$scope.$$nextSibling;
+	$scope.$parent.$$childHead;
+	$scope.$parent.$$childTail;
+	
+ -->
+</head>
+<body >
+	<div ng-app="myApp" >
+		<div ng-controller="ctrl01">
+			<button ng-click="toggle()">click</button>
+			<button ng-click="incre()" ng-show="show_flag">click</button>
+			
+			{{number}}
+		</div>
+		<div ng-controller="ctrl02">
+			 <button ng-click="incre2()">click</button>
+		</div>
+	</div>
+<script type="text/javascript" src="/sbdemo/assets/global.js"></script>
+<script type="text/javascript">
+	var app = angular.module("myApp",[]);
+	app.controller('ctrl01',function($scope,$location){
+		$scope.number = 0;
+		$scope.show_flag = true;
+		$scope.incre = function(){
+			$scope.number ++;
+		}
+		$scope.toggle = function(){
+			$scope.show_flag = !$scope.show_flag;
+		}
+	});
+	app.controller('ctrl02',function($scope){
+		
+		
+		$scope.incre2 = function(){
+			$scope.$$prevSibling.number ++;
+			$scope.$parent.$$childHead.number ++;
+		}
+	});
+
+</script>
+</body>
+</html>

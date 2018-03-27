@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>html Dom</title>
+<link rel="stylesheet" href="/sbdemo/assets/bootstrap.css"/>
+<!-- 
+	ng-disabled
+	ng-show
+	ng-hide	
+ -->
+</head>
+<body >
+	<div ng-app="myApp" >
+		<div ng-controller="ctrl01">
+			<button ng-disabled="enableSwitch">click</button>
+			<input type="checkbox" ng-model="enableSwitch">
+			{{enableSwitch}}
+			<span ng-show="enableSwitch">{{enableSwitch?'appear':'disappear'}}</span>
+		</div>
+	</div>
+<script type="text/javascript" src="/sbdemo/assets/global.js"></script>
+<script type="text/javascript">
+	var app = angular.module("myApp",[]);
+	app.controller('ctrl01',function($scope,$location){
+		$scope.enableSwitch = true;
+	});
+
+</script>
+</body>
+</html>
